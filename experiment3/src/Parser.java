@@ -13,8 +13,10 @@ public class Parser {
         parsingStack.push(GRAMMAR.START);
         int index = 0;
         while(index<input.size()&&!parsingStack.empty()){
-            if (!parsingStack.empty())
-                System.out.println("现在匹配："+index+" 栈顶为："+ parsingStack.peek().name()+" INPUT为："+input.get(index).name());
+            if (!parsingStack.empty()) {
+                System.out.println("现在匹配：" + index + " INPUT为：" + input.get(index).name());
+                System.out.println(parsingStack);
+            }
             int flag = stateChange(input.get(index));
             if(flag==-1) {
                 System.out.println("没有可用的语法，匹配失败");
@@ -81,7 +83,7 @@ public class Parser {
                       case OPT1:
                           parsingStack.pop();
                           parsingStack.push(GRAMMAR.ADD1);
-                          parsingStack.push(GRAMMAR.EXP);
+                          parsingStack.push(GRAMMAR.MUL0);
                           parsingStack.push(GRAMMAR.OPT1);
                           return 0;
                       default:
