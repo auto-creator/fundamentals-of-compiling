@@ -7,16 +7,16 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         PrintStream out = System.out; //保存原输出流
 
-        for(int i=1;i<6;i++){
-            String path = "D:\\test"+i+".txt";
-            PrintStream ps = new PrintStream("D:\\result"+i+".txt");//新建新输出流
+        for(int i=1;i<2;i++){
+            String path = "test"+i+".txt";
+            PrintStream ps = new PrintStream("result"+i+".txt");//新建新输出流
             System.setOut(ps);//切换输出流
 
 
             Scanner x = new Scanner(new FileReader(path));
-            Morphology morphology = new Morphology();
+            GrammarCheck grammarCheck = new GrammarCheck();
             while (x.hasNextLine()){
-                morphology.checkString(x.nextLine());
+                grammarCheck.check(x.nextLine());
         }
         }
 
