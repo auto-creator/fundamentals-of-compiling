@@ -10,6 +10,7 @@ public class Morphology {
     int index = 0;
     String token="";
     WordState state = WordState.START;
+    List<Symbol> inputList;
     static List<String> keywords = new ArrayList<>();
     static HashMap<String, String> map = new HashMap<String, String>();
     static {
@@ -31,10 +32,12 @@ public class Morphology {
     }
 
 
-    void checkString(String s){
+    List checkString(String s){
+        inputList = new ArrayList<>();
         index = 0;
         String negNote = "//.*$";
         s = s.replaceAll(negNote,"");
+        s = s + "#";
         for (;index<s.length();index++)
         {
 //            if(s.charAt(index)==' ')
@@ -47,13 +50,7 @@ public class Morphology {
 //            }
             state = WordState.transfer(state,s.charAt(index));
             if(state.compareTo(WordState.WORDEND)>=0){
-                try {
-                    outPut();
-                }
-                catch (IOException e){
-                    e.printStackTrace();
-                }
-
+                outPut();
                 token = "";
                 state = WordState.START;
                 if(s.charAt(index)!=' ')
@@ -64,32 +61,46 @@ public class Morphology {
             }
 
         }
+        outPut();
+        token = "";
+        inputList.add(Symbol.END);
+        return inputList;
     }
-    void outPut() throws FileNotFoundException {
+    void outPut() {
 
         switch (state)
         {
             case INTEND:
             case FLOATEND:
-                System.out.println("(Number,"+token+")");
+                inputList.add(Symbol.ALPHA);
                 break;
             case WORDEND:
-                if(keywords.contains(token))
+                if(keywords.contains(token)){
+                    /**此处应当增加错误处理*/
                     System.out.println("(Keyword,"+token+")");
+                }
                 else
-                    System.out.println("(Identifier,"+token+")");
+                    inputList.add(Symbol.ALPHA);
                 break;
             case OPERATEEND:
-                System.out.println("("+map.get(token)+","+token+")");
+                if(token.equals("+")||token.equals("-"))
+                    inputList.add(Symbol.OPT1);
+                else if(token.equals("*")||token.equals("/"))
+                    inputList.add(Symbol.OPT2);
                 break;
             case SYMBOLEND:
-                if(!map.containsKey(token))
-                    System.out.println("(Symbol,"+token+")");
-                else
-                    System.out.println("("+map.get(token)+","+token+")");
+                /**此处应当增加错误处理*/
+                if(token.equals("("))
+                   inputList.add(Symbol.LPARN);
+                else if(token.equals(")"))
+                    inputList.add(Symbol.RPARN);
+                else if(token.equals("+")||token.equals("-"))
+                    inputList.add(Symbol.OPT1);
+                else if(token.equals("*")||token.equals("/"))
+                    inputList.add(Symbol.OPT2);
                 break;
             default:
-                System.out.println(state);
+                /**此处应当增加错误处理*/
         }
 
     }
