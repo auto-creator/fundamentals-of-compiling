@@ -9,14 +9,14 @@ public class Parser {
     Stack<GRAMMAR> parsingStack = new Stack<GRAMMAR>();
     //static List<Symbol> input = new ArrayList<>();
 
-    void check(List<Symbol> input){
+    boolean check(List<Symbol> input){
         parsingStack.push(GRAMMAR.START);
         int index = 0;
         while(index<input.size()&&!parsingStack.empty()){
             int flag = stateChange(input.get(index));
             if(flag==-1) {
                 System.out.println("匹配失败");
-                return;
+                return false;
             }
             else if(flag==0){//状态已经转变，可以继续下一次循环
                 continue;
@@ -30,10 +30,14 @@ public class Parser {
             }
 
         }
-        if(parsingStack.empty()&&index==input.size())
+        if(parsingStack.empty()&&index==input.size()){
             System.out.println("匹配成功");
+            return true;
+        }
         else
+        {
             System.out.println("匹配失败");
+            return false;}
 
     }
 
