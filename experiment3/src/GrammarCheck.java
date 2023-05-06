@@ -1,10 +1,15 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class GrammarCheck {
     static void check(String input){
+        List<Symbol> inputList ;
+
         Morphology morphology = new Morphology();
-        morphology.checkString(input);
+        inputList = morphology.checkString(input);
+        System.out.println(inputList);
     }
 
     public static void main(String[] args) {
-        GrammarCheck.check("1 + 1 =  a");
     }
 }
