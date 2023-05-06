@@ -14,7 +14,6 @@ public class Main {
             PrintStream ps = new PrintStream("D:\\result"+i+".txt");//新建新输出流
             System.setOut(ps);//切换输出流
 
-
             Scanner x = new Scanner(new FileReader(path));
             Check check = new Check();
             while (x.hasNextLine()){
