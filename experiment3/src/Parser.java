@@ -9,7 +9,7 @@ public class Parser {
     Stack<GRAMMAR> parsingStack = new Stack<GRAMMAR>();
     //static List<Symbol> input = new ArrayList<>();
 
-    void check(List<String> input){
+    void check(List<Symbol> input){
         parsingStack.push(GRAMMAR.START);
         int index = 0;
         while(index<input.size()){
