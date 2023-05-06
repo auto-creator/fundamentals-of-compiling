@@ -13,9 +13,11 @@ public class Parser {
         parsingStack.push(GRAMMAR.START);
         int index = 0;
         while(index<input.size()&&!parsingStack.empty()){
+            if (!parsingStack.empty())
+                System.out.println("现在匹配："+index+" 栈顶为："+ parsingStack.peek().name()+" INPUT为："+input.get(index).name());
             int flag = stateChange(input.get(index));
             if(flag==-1) {
-                System.out.println("匹配失败");
+                System.out.println("没有可用的语法，匹配失败");
                 return false;
             }
             else if(flag==0){//状态已经转变，可以继续下一次循环
@@ -27,16 +29,21 @@ public class Parser {
                     parsingStack.pop();
                     index++;
                 }
+                else {
+                    System.out.println("栈顶和INPUT字符不相等，匹配失败");
+                    return false;
+                }
             }
 
         }
-        if(parsingStack.empty()&&index==input.size()){
+        if(parsingStack.empty()&&index==input.size()-1&&input.get(index).name()=="END")
+        {
             System.out.println("匹配成功");
             return true;
         }
         else
         {
-            System.out.println("匹配失败");
+            System.out.println("未同时为空，匹配失败");
             return false;}
 
     }
@@ -128,6 +135,8 @@ public class Parser {
               case ALPHA:
               case LPARN:
               case RPARN:
+              case OPT1:
+              case OPT2:
                   return 1;
               case BLANK:
                   parsingStack.pop();
