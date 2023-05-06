@@ -1,0 +1,3 @@
+public enum GRAMMAR {
+    START,ADD0,ADD1,MUL0,MUL1,EXP;
+}
