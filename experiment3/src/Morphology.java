@@ -14,13 +14,13 @@ public class Morphology {
     static HashMap<String, String> map = new HashMap<String, String>();
     static {
         try {
-            Scanner sc1 = new Scanner(new FileReader("/keywords.txt"));
+            Scanner sc1 = new Scanner(new FileReader("keywords.txt"));
             Scanner sc2;
             while (sc1.hasNextLine()) {
                 keywords.add(sc1.nextLine());
             }
-            sc1 = new Scanner(new FileReader("/SymRef.txt"));
-            sc2 = new Scanner(new FileReader("/RealSym.txt"));
+            sc1 = new Scanner(new FileReader("SymRef.txt"));
+            sc2 = new Scanner(new FileReader("RealSym.txt"));
             while (sc1.hasNextLine()&&sc2.hasNextLine()) {
                 map.put(sc2.nextLine(),sc1.nextLine());
             }
