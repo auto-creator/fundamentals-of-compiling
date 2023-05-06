@@ -30,6 +30,10 @@ public class Parser {
             }
 
         }
+        if(parsingStack.empty()&&index==input.size())
+            System.out.println("匹配成功");
+        else
+            System.out.println("匹配失败");
 
     }
 
