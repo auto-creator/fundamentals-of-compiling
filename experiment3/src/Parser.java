@@ -12,8 +12,22 @@ public class Parser {
     void check(List<Symbol> input){
         parsingStack.push(GRAMMAR.START);
         int index = 0;
-        while(index<input.size()){
-            stateChange(Symbol.valueOf(input.get(index)));
+        while(index<input.size()&&!parsingStack.empty()){
+            int flag = stateChange(input.get(index));
+            if(flag==-1) {
+                System.out.println("匹配失败");
+                return;
+            }
+            else if(flag==0){//状态已经转变，可以继续下一次循环
+                continue;
+            }
+            else //flag == 1，比较栈顶和输入符号
+            {
+                if(input.get(index).name().equals(parsingStack.peek().name())) {//说明栈顶和INPUT字符相等，可以消去
+                    parsingStack.pop();
+                    index++;
+                }
+            }
 
         }
 
@@ -123,4 +137,3 @@ public class Parser {
 
 
 
-}
