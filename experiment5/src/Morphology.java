@@ -1,5 +1,6 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -85,15 +86,10 @@ public class Morphology {
                     inputList.add(Symbol.ALPHA);
                 break;
             case OPERATEEND:
-                if(token.equals("+"))
-                    inputList.add(Symbol.OPT_PLUS);
-                else if(token.equals("-"))
-                    inputList.add(Symbol.OPT_MINUS);
-                else if(token.equals("*"))
-                    inputList.add(Symbol.OPT_MUL);
-                else if(token.equals("/"))
-                    inputList.add(Symbol.OPT_DIVIDE);
-
+                if(token.equals("+")||token.equals("-"))
+                    inputList.add(Symbol.OPT1);
+                else if(token.equals("*")||token.equals("/"))
+                    inputList.add(Symbol.OPT2);
                 break;
             case SYMBOLEND:
                 /**此处应当增加错误处理*/
@@ -101,14 +97,10 @@ public class Morphology {
                    inputList.add(Symbol.LPARN);
                 else if(token.equals(")"))
                     inputList.add(Symbol.RPARN);
-                else if(token.equals("+"))
-                    inputList.add(Symbol.OPT_PLUS);
-                else if(token.equals("-"))
-                    inputList.add(Symbol.OPT_MINUS);
-                else if(token.equals("*"))
-                    inputList.add(Symbol.OPT_MUL);
-                else if(token.equals("/"))
-                    inputList.add(Symbol.OPT_DIVIDE);
+                else if(token.equals("+")||token.equals("-"))
+                    inputList.add(Symbol.OPT1);
+                else if(token.equals("*")||token.equals("/"))
+                    inputList.add(Symbol.OPT2);
                 break;
             default:
                 /**此处应当增加错误处理*/

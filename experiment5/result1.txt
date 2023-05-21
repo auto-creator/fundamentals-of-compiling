@@ -1,0 +1,20 @@
+现在匹配：0 INPUT为：12
+[START]
+现在匹配：0 INPUT为：12
+[ADD0]
+现在匹配：0 INPUT为：12
+[ADD1, MUL0]
+现在匹配：0 INPUT为：12
+[ADD1, MUL1, EXP]
+现在匹配：0 INPUT为：12
+[ADD1, MUL1, ALPHA]
+现在匹配：1 INPUT为：#
+[ADD1, MUL1]
+现在匹配：1 INPUT为：#
+[ADD1, BLANK]
+现在匹配：1 INPUT为：#
+[ADD1]
+现在匹配：1 INPUT为：#
+[BLANK]
+匹配成功
+accept

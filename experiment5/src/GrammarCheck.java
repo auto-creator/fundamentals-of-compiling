@@ -12,7 +12,7 @@ public class GrammarCheck {
         inputList = morphology.checkString(input);
         inputString = morphology.inputString;
         parser.inputString = inputString;
-        result = parser.check(inputList,parser.inputString);
+        result = parser.check(inputList);
         if(!result){
             System.out.println("deny");
         }

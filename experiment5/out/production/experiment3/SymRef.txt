@@ -1,0 +1,16 @@
+plus
+minus
+times 
+slash
+eql 
+neq 
+lss 
+leq 
+gtr 
+geq 
+becomes
+Lparen 
+rparen 
+comma 
+semicolon
+period
