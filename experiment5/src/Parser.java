@@ -6,11 +6,12 @@ public class Parser {
     // 用一个全局变量来存储当前输入的符号
     Stack<GRAMMAR> parsingStack = new Stack<GRAMMAR>();
     List<String> inputString;
-    Stack<Integer> numBerStack = new Stack<>();
+    Stack<Identifier> IdentifierStack = new Stack<>();
+    int Place = 0;
     //static List<Symbol> input = new ArrayList<>();
 
     boolean check(List<Symbol> input,List<String> inputString){
-        numBerStack.clear();
+        IdentifierStack.clear();
         this.inputString = inputString;
         parsingStack.push(GRAMMAR.START);
         int index = 0;
@@ -41,7 +42,7 @@ public class Parser {
         }
         if(parsingStack.empty()&&index==input.size()-1&&input.get(index).name()=="END")
         {
-            System.out.println("匹配成功,运算值为:"+numBerStack.pop());
+            System.out.println("匹配成功,运算值为:"+ IdentifierStack.pop());
             return true;
         }
         else
@@ -52,7 +53,7 @@ public class Parser {
     }
 
       int stateChange(Symbol sym,String s) { //返回状态有三种：-1代表匹配失败，0代表匹配成功且是非终结符，1代表匹配成功且是终结符
-          int x,y;
+          Identifier x,y;
           switch (parsingStack.peek()) {
               case START:
                   switch (sym) {
@@ -155,31 +156,39 @@ public class Parser {
                   }
 
               case PLUS:
-                  x = numBerStack.pop();
-                  y = numBerStack.pop();
-                  numBerStack.push(y+x);
+                  x = IdentifierStack.pop();
+                  y = IdentifierStack.pop();
+                  System.out.println("("+"+"+","+y.place+","+x.place+","+"t"+Place+")");
+                  IdentifierStack.push(new Identifier("t"+Place));
+                  Place++;
                   parsingStack.pop();
                   return 0;
               case MINUS:
-                  x = numBerStack.pop();
-                  y = numBerStack.pop();
-                  numBerStack.push(y-x);
+                  x = IdentifierStack.pop();
+                  y = IdentifierStack.pop();
+                  System.out.println("("+"-"+","+y.place+","+x.place+","+"t"+Place+")");
+                  IdentifierStack.push(new Identifier("t"+Place));
+                  Place++;
                   parsingStack.pop();
                   return 0;
               case MULTIPLE:
-                  x = numBerStack.pop();
-                  y = numBerStack.pop();
-                  numBerStack.push(y*x);
+                  x = IdentifierStack.pop();
+                  y = IdentifierStack.pop();
+                  System.out.println("("+"*"+","+y.place+","+x.place+","+"t"+Place+")");
+                  IdentifierStack.push(new Identifier("t"+Place));
+                  Place++;
                   parsingStack.pop();
                   return 0;
                 case DIVIDE:
-                  x = numBerStack.pop();
-                  y = numBerStack.pop();
-                  numBerStack.push(y/x);
+                  x = IdentifierStack.pop();
+                  y = IdentifierStack.pop();
+                  System.out.println("("+"/"+","+y.place+","+x.place+","+"t"+Place+")");
+                  IdentifierStack.push(new Identifier("t"+Place));
+                  Place++;
                   parsingStack.pop();
                   return 0;
               case ALPHA:
-                  numBerStack.push(Integer.parseInt(s));
+                  IdentifierStack.push(new Identifier(s));
               case LPARN:
               case RPARN:
               case OPT_PLUS:
@@ -198,6 +207,18 @@ public class Parser {
 
 
     }
+
+class Identifier {
+    public String place;
+    Identifier(String place){
+        this.place = place;
+    }
+    Identifier(){
+        this.place = "";
+    }
+}
+
+
 
 
 
